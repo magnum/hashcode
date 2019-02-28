@@ -12,11 +12,14 @@ class Worker
 
    def perform!
       puts "mumble, mumble..."
-      photos_sorted = @photos.sort! { |a, b|  a.flavour <=> b.flavour }
-      photos_sorted.each_with_index do |photo, index|
-         slide = Slide.new index, [photo]
-         @slides << slide
+      tags = {}
+      @photos.each_with_index do |photo|
+         photo.tags.each do |tag|
+            tags[tag] = [] unless tags[tag]
+            tags[tag] << photo.id
+         end
       end
+      puts tags.select{|key, value| value.length > 1 } #todo, shit! noticed at the end that tags was so different: each tags had only max 2 photos tagged w/ it
    end
 
 end
