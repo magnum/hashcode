@@ -21,7 +21,10 @@ class Parser
       worker = Worker.new @photos
       worker.perform!
       worker.slides.each_with_index do |slide, index|
-         puts slide
+         puts [
+            slide.to_s,
+            "-"*30,
+         ].join("\n")
       end
 
       output_file_path = input_file_path.gsub File.extname(input_file_path), "_submitted_#{Time.now.to_i}#{File.extname(input_file_path)}"

@@ -1,3 +1,5 @@
+require './slide.rb'
+
 class Worker
 
    attr_accessor :photos
@@ -10,9 +12,10 @@ class Worker
 
    def perform!
       puts "mumble, mumble..."
-      photos_sorted = @photos.shuffle #.sort! { |a, b|  a.flavour <=> b.flavour }
-      photos_sorted.each do |photo|
-         @slides << [photo]
+      photos_sorted = @photos.sort! { |a, b|  a.flavour <=> b.flavour }
+      photos_sorted.each_with_index do |photo, index|
+         slide = Slide.new index, [photo]
+         @slides << slide
       end
    end
 
