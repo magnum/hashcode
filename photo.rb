@@ -16,7 +16,7 @@ class Photo
     @id = id
     @orientation = parts[0]
     @tags_number = parts[1]
-    @tags = parts.length > 2 ? parts[2..parts.length].sort : []
+    @tags = parts.length > 2 ? parts[2..parts.length].map(&:strip).sort : []
     @flavour = @tags.join(",")
   end
 
@@ -26,9 +26,10 @@ class Photo
 
   def interest_factor_with(other_photo)
     tags_in_common = @tags & other_photo.tags
-    tags_in_1st_not_in_2nd = @tags - other_photo.tags
-    tags_in_2nd_not_in_1st = other_photo.tags - @tags
-    min(tags_in_common.length, tags_in_1st_not_in_2nd.length, tags_in_2nd_not_in_1st.length)
+    tags_in_1st_not_in_2nd = @tags - tags_in_common
+    tags_in_2nd_not_in_1st = other_photo.tags - tags_in_common
+    puts "tags_in_common: #{tags_in_common.length}, tags_in_1st_not_in_2nd: #{tags_in_1st_not_in_2nd.length}, tags_in_2nd_not_in_1st: #{tags_in_2nd_not_in_1st.length}"
+    factor = [tags_in_common.length, tags_in_1st_not_in_2nd.length, tags_in_2nd_not_in_1st.length].min
   end
 
 end
