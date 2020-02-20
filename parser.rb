@@ -16,11 +16,11 @@ class Parser
       @how_many_days = 0
    end
 
-   def run(args)
-      input_file_path = File.join("./", args[0])
+   def run(filename, limit=nil)
+      input_file_path = File.join("./", filename)
       puts "loading file #{input_file_path}"
-      limit = args[1] || nil
       library_id = 0
+      puts input_file_path
       File.open(input_file_path).read.each_line.with_index do |line, index|
          #break if index > 5
          if(index==0)
@@ -58,7 +58,6 @@ class Parser
 
       #output
       days_left = @how_many_days
-
       @libraries.sort_by {|l| l[:score] }.reverse.each do |library|
          wanted_books_from_library = (days_left + library[:signup_days]) * library[:books_per_days]
          library[:books_to_send] = wanted_books_from_library > library[:books_number] ? library[:books_number] : wanted_books_from_library

@@ -1,4 +1,6 @@
 require './parser.rb'
 
 object = Parser.new
-object.run ARGV
+filename = ARGV[0]
+limit = ARGV[1] || nil
+object.run filename, limit
