@@ -7,9 +7,7 @@ parser = Parser.new
 # parser.run filename, limit
 
 [
-  "a.txt",
+  "test.txt",
 ].each do |filename|
   parser.run filename
 end
-#exec('tar cvzf output/submission_$(date +"%Y%m%d%H%M%S").tar.gz  --exclude .git --exclude "*.txt" --exclude="./output/*" ./')
-

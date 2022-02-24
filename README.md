@@ -10,7 +10,7 @@ files specified in runner.rb as array
 output will be in ./output folder
 
 manual save submission
-`tar cvzf output/submission_$(date +"%Y%m%d%H%M%S").tar.gz  --exclude .git --exclude "*.txt" --exclude="./output/*" ./`
+`tar cvzf output/submission_$(date +"%Y%m%d%H%M%S").tar.gz  --exclude --exclude .git --exclude "*.txt" --exclude="./output/*" ./`
 
 
 

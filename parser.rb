@@ -8,6 +8,20 @@ class Parser
       @data = []
    end
 
+
+   def purge_output_dir()
+      path = "./output/"
+      Dir.foreach(File.join(path)) do |f|
+         File.delete(File.join(path, f)) if f != '.' && f != '..'
+      end
+   end
+
+
+   def create_output_archive
+      `tar cvzf output/submission_$(date +"%Y%m%d%H%M%S").tar.gz --exclude .DS_Store --exclude .git --exclude "*.txt" --exclude="./output/*" ./`
+   end
+
+
    def run(filename, limit=nil)
       input_file_path = File.join("./", filename)
       puts "loading file #{input_file_path}"
@@ -20,7 +34,10 @@ class Parser
 
       output_file_path = input_file_path.gsub File.extname(input_file_path), "_submitted_#{Time.now.to_i}#{File.extname(input_file_path)}"
       lines = @data.join("\n")
-      #File.write(File.join("./output/", output_file_path), lines)
+
+      purge_output_dir
+      File.write(File.join("./output/", output_file_path), lines)
+      create_output_archive
    end
 
 end
